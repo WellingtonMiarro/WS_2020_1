@@ -1,2 +1,2 @@
 # WS_2020_1
-Repositório dos projetos da disciplina Web Service (2020/1)
+Repositório dos projetos da disciplina Web Service (2020/1) [TSI](https://www.ifms.edu.br/campi/campus-aquidauana/cursos/graduacao/sistemas-para-internet/sistemas-para-internet) - IFMS - Campus Aquidauana 
