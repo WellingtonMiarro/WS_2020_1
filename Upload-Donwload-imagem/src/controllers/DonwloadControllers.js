@@ -20,7 +20,7 @@ const controllers = {
             }
         });
     },
-    thumb: async (req, res) => {
+    thumb: async (req, res, anexo) => {
         const fs = require('fs');
         const resizeImg = require('resize-img');
         const id = req.params.id;
@@ -31,25 +31,15 @@ const controllers = {
             width: 100,
             height: 100
         });
+        if(anexo){
+            const nomeArquivoo = anexo.filename;
+            const readStream = anexo.read();
+            //realiza o download
+            res.attachment(nomeArquivoo);
+            readStream.pipe(res);
+        }
         fs.writeFileSync(id, image);
 
-        Imagem.findById(id, (erro, anexo ) => {
-            if(erro){
-                console.log(erro);
-                res.status(500).json({mensagem: 'Erro ao tentar fazer o Download'});
-            }else{
-                if(anexo){
-                    const nomeArquivoo = anexo.filename;
-                    const readStream = anexo.read();
-                    //realiza o download
-                    res.attachment(nomeArquivoo);
-                    readStream.pipe(res);
-                }else{
-                    res.status(404).json({mensagem: 'Imagem Não encontrada'});
-                }
-            }
-           
-        });
     },
 
     listar: (req, res) => {
