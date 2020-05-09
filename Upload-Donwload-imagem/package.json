@@ -1,0 +1,26 @@
+{
+  "name": "Upload-Donwload-imagem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.7-alpha.3",
+    "gm": "^1.23.1",
+    "mongoose": "^5.9.9",
+    "mongoose-gridfs": "^1.2.36",
+    "morgan": "^1.10.0",
+    "resize-img": "^2.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
