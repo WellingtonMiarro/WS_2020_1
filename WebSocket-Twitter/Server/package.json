@@ -1,0 +1,24 @@
+{
+  "name": "exemplo-twitter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon"
+  },
+  "keywords": [],
+  "author": "Wellington Miarro Ferreira",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-tweet-stream": "^2.0.3",
+    "socket.io": "^2.3.0",
+    "twit": "^2.2.11",
+    "twitter": "^1.7.1",
+    "twitter-stream-api": "^0.5.2",
+    "websocket": "^1.0.31"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
