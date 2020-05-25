@@ -1,5 +1,7 @@
 const http = require('http');
+const express = require('express')
 const server = http.createServer();
+
 const io = require('socket.io')(server);
 
 const Twit = require('twit');
@@ -12,9 +14,8 @@ var T = new Twit({
     timeout_ms: 60 * 1000,  //tempo limite opcional da solicitação HTTP para aplicar a todas as solicitações.
     strictSSL: true,     // opcional - requer que os certificados SSL sejam válidos.
 });
-
 let stream = T.stream('statuses/filter', { track: 'Maisa' }); //A palavra ou Teg do Twitter entra Aqui!
-let isStreamStopped = false;
+
 
 function getTweetObject(tweet) {
   let tweetText = (tweet.extended_tweet) ? tweet.extended_tweet.full_text : tweet.text;
@@ -35,35 +36,23 @@ function getTweetObject(tweet) {
 
   return TweetObject;
 }
-
-io.on('connection', function (socket) {
-  console.log('sockets conectado!');
-
-  socket.on('tweet', () => {
-      console.log('Reicinicair Tweets');
-      stream.start();
-      isStreamStopped = false;
-  });
+let tweet = [];
+io.on('connection', socket=> {
+    socket.emit('mostrarTweet', tweet);
 
   socket.on('tweet', () => {
-      console.log('começou a transmissão dos Tweets');
+      stream.on('novoTweet', mostrarTweet => {
+        tweet.push(mostrarTweet)
+        socket.broadcast.emit('mostrarTweet', tweet);
 
-      if (!isStreamStopped) {
-          stream.stop();
-      }
+          let TweetObject = getTweetObject(novoTweet);
 
-      stream.on('tweet', function (tweet) {
-          console.log('tweeting');
+          socket.emit('mostrarTweet', TweetObject);
 
-          let TweetObject = getTweetObject(tweet);
-
-          socket.emit('latest tweets', TweetObject);
-      });
-
-      stream.start();
-
-      isStreamStopped = false;
+      });   
   });
 });
+
+   
 
 module.exports = server;
